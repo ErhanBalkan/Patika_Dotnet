@@ -1,0 +1,10 @@
+# Okunabilir API Tasarımı
+
+Okunabilir API'lar tasarlamak sizin developerlar ile ortak bir dil konuşabilmeniz için oldukça önemlidir. Projeye sizden sonra dahil olacak developlerların sadece içgüdüsel olarak endpointe baktığında hangi amaçla yaratıldığını anlayabiliyor olması gerekir. Aynı zamanda API'nizi kullanacak olan diğer developerlar da ilk bakışta bir API'ın isimlendirmesinden hangi amaçla kullanıldığını rahatlıkla anlayabilmelidir.
+
+Bu amaçla okunabilir API tasarlamak için aşağıdaki genel kurallara dikkat edilerek API isimlendirmek doğru bir yöntem olacaktır.
+
+1. Aksiyon ifadelerinden kaçınılmalı : Aksiyon ifadelerini sizin yerinize http verb'leri zaten yapacaktır, bu nedenle isimlendirme yapılırken aksiyon ifadelerinden kaçınılmalıdır.
+`Örnek` : /Books/getBooks yerine zaten bu isteği HTTP GET ile yapacağımızdan yalnızca /Books/ olması daha doğru olacaktır. Bir endpointi okurken önünde hangi http verb kullanacaksak onunla birlikte okuyarak isimlendireceğimizi düşünmeliyiz.
+2. Controller yani resource isimlendirmesi çoğul olacak şekilde yapılmalı. Doğası gereği aslında bu kaynakların çoğul yani birden fazla olduğunu göz önünde bulundurmalıyız.
+`Örnek` : Book/yerine Books/ kullanılmalı.
