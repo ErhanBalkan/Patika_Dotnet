@@ -4,34 +4,40 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]s")]
 public class BookController : ControllerBase
 {
-    private static List<Book> BookList = new List<Book>()
-    {
-        new Book{
-            Id = 1,
-            Title = "Lean Startup",
-            GenreId = 1, // Personal Growth
-            PageCount = 200,
-            PublishDate = new DateTime(2001,06,12)
-        },
-        new Book{
-            Id = 2,
-            Title = "Herland",
-            GenreId = 2, 
-            PageCount = 250,
-            PublishDate = new DateTime(2010,05,23)
-        },
-        new Book{
-            Id = 3,
-            Title = "Dune",
-            GenreId = 2, 
-            PageCount = 540,
-            PublishDate = new DateTime(2002,12,21)
-        }
-    };
+
+    private readonly BookStoreDbContext _context;
+    public BookController(BookStoreDbContext context){
+        _context = context;
+    }   
+
+    // private static List<Book> BookList = new List<Book>()
+    // {
+    //     new Book{
+    //         Id = 1,
+    //         Title = "Lean Startup",
+    //         GenreId = 1, // Personal Growth
+    //         PageCount = 200,
+    //         PublishDate = new DateTime(2001,06,12)
+    //     },
+    //     new Book{
+    //         Id = 2,
+    //         Title = "Herland",
+    //         GenreId = 2, 
+    //         PageCount = 250,
+    //         PublishDate = new DateTime(2010,05,23)
+    //     },
+    //     new Book{
+    //         Id = 3,
+    //         Title = "Dune",
+    //         GenreId = 2, 
+    //         PageCount = 540,
+    //         PublishDate = new DateTime(2002,12,21)
+    //     }
+    // };
 
     [HttpGet]
     public List<Book> GetBooks(){
-        List<Book> bookList = BookList.OrderBy(b => b.Id).ToList<Book>();
+        List<Book> bookList = _context.Books.OrderBy(b => b.Id).ToList<Book>();
         return bookList;
     }
 
@@ -39,7 +45,7 @@ public class BookController : ControllerBase
 
     [HttpGet("{id}")] // Route üzerinden parametreyi alacak.
     public Book GetById(int id){
-        Book book = BookList.Where(b => b.Id == id).SingleOrDefault(); // 1 tane getirmesi için SingleOrDefault()
+        Book book = _context.Books.Where(b => b.Id == id).SingleOrDefault(); // 1 tane getirmesi için SingleOrDefault()
         return book;
     }
     // Örnek route => http://localhost:5109/Books/3
@@ -58,11 +64,12 @@ public class BookController : ControllerBase
 
     [HttpPost]
     public IActionResult AddBook([FromQuery] Book newBook){
-        Book book = BookList.SingleOrDefault(b => b.Title == newBook.Title);
+        Book book = _context.Books.SingleOrDefault(b => b.Title == newBook.Title);
         if (book is not null)
             return BadRequest();
         
-        BookList.Add(newBook);
+        _context.Books.Add(newBook);
+        _context.SaveChanges();
         return Ok();
     }
 
@@ -70,7 +77,7 @@ public class BookController : ControllerBase
 
     [HttpPut("{id}")]
     public IActionResult UpdateBook(int id, [FromBody] Book updatedBook){
-        Book book = BookList.SingleOrDefault(b => b.Id == id);
+        Book book = _context.Books.SingleOrDefault(b => b.Id == id);
 
         if (book is null)
             return BadRequest();
@@ -80,18 +87,19 @@ public class BookController : ControllerBase
         book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
         book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
         book.Title = updatedBook.Title != default ? updatedBook.Title : book.Title;
-
+        _context.SaveChanges();
         return Ok();
 
     }
 
     [HttpDelete("{id}")]
     public IActionResult DeleteBook(int id){
-        Book book = BookList.SingleOrDefault(b => b.Id == id);
+        Book book = _context.Books.SingleOrDefault(b => b.Id == id);
         if (book is null)
             return BadRequest();
 
-        BookList.Remove(book);
+        _context.Books.Remove(book);
+        _context.SaveChanges();
         return Ok();
     }
 

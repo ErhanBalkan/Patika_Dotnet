@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BooKStore\\WebApi\\WebApi.csproj": {}
+    "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BookStore\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BooKStore\\WebApi\\WebApi.csproj": {
+    "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BookStore\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BooKStore\\WebApi\\WebApi.csproj",
+        "projectUniqueName": "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BookStore\\WebApi\\WebApi.csproj",
         "projectName": "WebApi",
-        "projectPath": "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BooKStore\\WebApi\\WebApi.csproj",
+        "projectPath": "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BookStore\\WebApi\\WebApi.csproj",
         "packagesPath": "C:\\Users\\erhan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BooKStore\\WebApi\\obj\\",
+        "outputPath": "C:\\Users\\erhan\\Desktop\\Patika_Dotnet\\Web_Api\\BookStore\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\erhan\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -39,6 +39,14 @@
           "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[7.0.1, )"
             },
