@@ -1,10 +1,14 @@
+using AutoMapper;
+
 public class GetBookDetailQuery
 {
     private readonly BookStoreDbContext _dbContext;
+    private readonly IMapper _mapper;
     public int BookId { get; set; }
-    public GetBookDetailQuery(BookStoreDbContext dbContext)
+    public GetBookDetailQuery(BookStoreDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
 
     public BookDetailViewModel Handle(){
@@ -13,11 +17,17 @@ public class GetBookDetailQuery
         {
             throw new InvalidOperationException("Kitap bulunamadı.");
         }
-        BookDetailViewModel vm = new BookDetailViewModel();
-        vm.Title = book.Title;
-        vm.PageCount = book.PageCount;
-        vm.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy");
+        BookDetailViewModel vm = _mapper.Map<BookDetailViewModel>(book);
+        // vm.Title = book.Title;
+        // vm.PageCount = book.PageCount;
+        // vm.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy");
         return vm;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is GetBookDetailQuery query &&
+               EqualityComparer<IMapper>.Default.Equals(_mapper, query._mapper);
     }
 
     public class BookDetailViewModel
@@ -28,4 +38,8 @@ public class GetBookDetailQuery
         public string PublishDate { get; set; }
     }
 
+    public override int GetHashCode()
+    {
+        throw new NotImplementedException();
+    }
 }
