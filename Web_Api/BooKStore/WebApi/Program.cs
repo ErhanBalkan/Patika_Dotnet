@@ -32,4 +32,22 @@ using(var scope = app.Services.CreateScope()){
     DataGenerator.Initialize(services);
 }
 
-app.Run();
+app.Run(async context => System.Console.WriteLine("Middleware 1."));
+
+app.Use(async(context,next) => {
+    System.Console.WriteLine("Middleware 1 başladı.");
+    await next.Invoke();
+    System.Console.WriteLine("Middleware 1 sonlandırılıyor...");
+});
+
+app.Use(async(context,next) => {
+    System.Console.WriteLine("Middleware 2 başladı.");
+    await next.Invoke();
+    System.Console.WriteLine("Middleware 2 sonlandırılıyor...");
+});
+
+app.Use(async(context,next) => {
+    System.Console.WriteLine("Middleware 3 başladı.");
+    await next.Invoke();
+    System.Console.WriteLine("Middleware 3 sonlandırılıyor...");
+});
