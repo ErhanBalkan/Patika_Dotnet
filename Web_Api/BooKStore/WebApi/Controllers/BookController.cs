@@ -1,4 +1,6 @@
 using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using static CreateBookCommand;
 using static GetBookDetailQuery;
@@ -83,6 +85,17 @@ public class BookController : ControllerBase
         CreateBookCommand command = new CreateBookCommand(_context,_mapper );
         try{
         command.Model = newBook;
+        CreateBookCommandValidator validator = new CreateBookCommandValidator();
+        // ValidationResult result = validator.Validate(command);
+        // if(!result.IsValid){
+        //     foreach (var item in result.Errors)
+        //     {
+        //         System.Console.WriteLine("Özellik: " + item.PropertyName + "- Error Message: " + item.ErrorMessage);
+        //     }
+        // }else{
+        //     command.Handle();
+        // }
+        validator.ValidateAndThrow(command); // direk hatayı gönderir üsttekilere gerek kalmaz.
         command.Handle();
         }catch(Exception ex){
             return BadRequest(ex.Message);
@@ -123,6 +136,8 @@ public class BookController : ControllerBase
         try{
         DeleteBookCommand command = new DeleteBookCommand(_context);
         command.BookId = id;
+        DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
+        validator.ValidateAndThrow(command);
         command.Handle();
         }catch(Exception ex){
             return BadRequest(ex.Message);
