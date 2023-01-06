@@ -5,6 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Dependency Injection
+builder.Services.AddSingleton<ILoggerService,ConsoleLogger>();
+
 builder.Services.AddControllers();
 builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase("BookStoreDB"));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -32,22 +35,26 @@ using(var scope = app.Services.CreateScope()){
     DataGenerator.Initialize(services);
 }
 
-app.Run(async context => System.Console.WriteLine("Middleware 1."));
 
-app.Use(async(context,next) => {
-    System.Console.WriteLine("Middleware 1 başladı.");
-    await next.Invoke();
-    System.Console.WriteLine("Middleware 1 sonlandırılıyor...");
-});
+// MİDDLEWARE
+// app.Run(async context => System.Console.WriteLine("Middleware 1."));
 
-app.Use(async(context,next) => {
-    System.Console.WriteLine("Middleware 2 başladı.");
-    await next.Invoke();
-    System.Console.WriteLine("Middleware 2 sonlandırılıyor...");
-});
+// app.Use(async(context,next) => {
+//     System.Console.WriteLine("Middleware 1 başladı.");
+//     await next.Invoke();
+//     System.Console.WriteLine("Middleware 1 sonlandırılıyor...");
+// });
 
-app.Use(async(context,next) => {
-    System.Console.WriteLine("Middleware 3 başladı.");
-    await next.Invoke();
-    System.Console.WriteLine("Middleware 3 sonlandırılıyor...");
-});
+// app.Use(async(context,next) => {
+//     System.Console.WriteLine("Middleware 2 başladı.");
+//     await next.Invoke();
+//     System.Console.WriteLine("Middleware 2 sonlandırılıyor...");
+// });
+
+// app.Use(async(context,next) => {
+//     System.Console.WriteLine("Middleware 3 başladı.");
+//     await next.Invoke();
+//     System.Console.WriteLine("Middleware 3 sonlandırılıyor...");
+// });
+
+app.Run();

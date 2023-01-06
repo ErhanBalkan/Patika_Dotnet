@@ -13,10 +13,13 @@ public class BookController : ControllerBase
 
     private readonly BookStoreDbContext _context;
     private readonly IMapper _mapper;
-    public BookController(BookStoreDbContext context, IMapper mapper){
+    private readonly ConsoleLogger _consoleLogger;
+    public BookController(BookStoreDbContext context, IMapper mapper, ConsoleLogger consoleLogger)
+    {
         _context = context;
         _mapper = mapper;
-    }   
+        _consoleLogger = consoleLogger;
+    }
 
     // private static List<Book> BookList = new List<Book>()
     // {
@@ -47,6 +50,7 @@ public class BookController : ControllerBase
     public IActionResult GetBooks(){
         GetBooksQuery query = new GetBooksQuery(_context);
         var result = query.Handle();
+        _consoleLogger.Write("Kitaplar listelendi.");
         return Ok(result);
     }
 
@@ -61,7 +65,9 @@ public class BookController : ControllerBase
         GetBookDetailQueryValidator validator = new GetBookDetailQueryValidator();
         validator.ValidateAndThrow(query);
         result = query.Handle();
+        _consoleLogger.Write($"{id}'ye sahip kitap listelendi.");
         }catch(Exception ex){
+            _consoleLogger.Write(ex.Message);
             return BadRequest(ex.Message);
         }
 

@@ -34,3 +34,6 @@ C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\obj\Debug\net7.0\r
 C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\obj\Debug\net7.0\WebApi.pdb
 C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\obj\Debug\net7.0\WebApi.genruntimeconfig.cache
 C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\obj\Debug\net7.0\ref\WebApi.dll
+C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\erhan\Desktop\Patika_Dotnet\Web_Api\BookStore\WebApi\bin\Debug\net7.0\FluentValidation.dll
